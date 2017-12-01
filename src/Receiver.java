@@ -15,6 +15,7 @@ public class Receiver implements Runnable {
     public void run() {
         while (true) {
             getMessage();
+            System.out.println("neer");
         }
     }
 
