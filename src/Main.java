@@ -6,6 +6,7 @@ public class Main {
 
     private InputStream inputStream;
     private OutputStream outputStream;
+    private Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         new Main().run();
@@ -33,7 +34,6 @@ public class Main {
     }
 
     private void printMenu() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to our chatserver!\nUsername:");
         String username = scanner.nextLine();
         System.out.println("Password:");
@@ -43,9 +43,7 @@ public class Main {
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                System.out.println("Chat with whoms't'd?");
-                String user = scanner.nextLine();
-                startChat(user);
+                startChat();
                 break;
             case 2:
                 System.out.println("Groupchat id?");
@@ -58,11 +56,16 @@ public class Main {
         }
     }
 
-    private void startChat(String user) {
-        System.out.println("chat started");
+    private void startChat() {
+        System.out.println("Chat with whoms't'd?");
+        String user = scanner.nextLine();
+        System.out.println("Chat started with " + user);
         Receiver messageReceiver = new Receiver(inputStream);
         Sender messageSender = new Sender(outputStream);
 
+
+        String message = scanner.nextLine();
+        messageSender.send(message);
         messageReceiver.run();
     }
 
