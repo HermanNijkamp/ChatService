@@ -3,9 +3,9 @@ import java.net.Socket;
 
 public class Main {
 
-    Socket socket;
     private final int SERVER_PORT = 1337;
     private final String SERVER_ADDRESS = "localhost";
+    private Socket socket;
 
     public static void main(String[] args) {
         new Main().run();
@@ -17,14 +17,17 @@ public class Main {
         try {
             //Let's connect this baby
             socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+
             inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Sender messageSender = new Sender(inputStream);
+        Receiver messageReceiver = new Receiver(inputStream);
+        Sender messageSender = new Sender(outputStream);
 
+        messageReceiver.run();
     }
 
     //Listens for incoming messages

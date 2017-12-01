@@ -1,12 +1,15 @@
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Sender {
-    private InputStream inputStream;
-    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+    private OutputStream outputStream;
 
-    public Sender(InputStream inputStream) {
-        this.inputStream = inputStream;
+    public Sender(OutputStream outputStream) {
+        this.outputStream = outputStream;
+    }
+
+    public void send(String message) {
+        PrintWriter writer = new PrintWriter(outputStream);
+        writer.println(message);
+        writer.flush();
     }
 }
