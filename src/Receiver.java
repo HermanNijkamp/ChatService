@@ -4,21 +4,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Receiver implements Runnable {
-    InputStream inputStream;
-    BufferedReader reader;
+    private InputStream inputStream;
+    private BufferedReader reader;
 
     public Receiver(InputStream inputStream) {
-        this.inputStream = inputStream;
         reader = new BufferedReader(new InputStreamReader(inputStream));
     }
 
     public void run() {
         while (true) {
-            getMessage();
+            System.out.println(getMessage());
         }
     }
 
-    public String getMessage() {
+    private String getMessage() {
         String message = "";
         try {
             message = reader.readLine();
