@@ -14,6 +14,7 @@ public class Main {
     }
 
     private void run() {
+        //Sets up connection with the socket
         connect();
 //        login();
         printMenu();
