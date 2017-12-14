@@ -1,6 +1,7 @@
 import java.io.*;
 
 public class Sender {
+
     private OutputStream outputStream;
 
     public Sender(OutputStream outputStream) {

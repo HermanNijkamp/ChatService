@@ -7,7 +7,6 @@ public class Main {
     private InputStream inputStream;
     private OutputStream outputStream;
     private Scanner scanner = new Scanner(System.in);
-    private Socket socket;
 
     public static void main(String[] args) {
         new Main().run();
@@ -16,16 +15,24 @@ public class Main {
     private void run() {
         //Sets up connection with the socket
         connect();
+
+        Receiver messageReceiver = new Receiver(inputStream);
+        Thread receiverThread = new Thread(messageReceiver);
+        receiverThread.start();
 //        login();
         printMenu();
-
+        try {
+            receiverThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void connect() {
         try {
             String SERVER_ADDRESS = "localhost";
             int SERVER_PORT = 1337;
-            socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+            Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
             inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
         } catch (IOException e) {
@@ -53,13 +60,12 @@ public class Main {
 
     private void chat() {
         System.out.println("Chat Started");
-        Receiver messageReceiver = new Receiver(inputStream);
+
         Sender messageSender = new Sender(outputStream);
-        messageReceiver.run();
 
         while (true) {
             String message = scanner.nextLine();
-            messageSender.send(message);
+            messageSender.send("BCST " + message);
         }
     }
 

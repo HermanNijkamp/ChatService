@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Receiver implements Runnable {
-    private InputStream inputStream;
     private BufferedReader reader;
 
     public Receiver(InputStream inputStream) {
@@ -13,17 +12,12 @@ public class Receiver implements Runnable {
 
     public void run() {
         while (true) {
-            System.out.println(getMessage());
+            try {
+                String message = reader.readLine();
+                System.out.println(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-    }
-
-    private String getMessage() {
-        String message = "";
-        try {
-            message = reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return message;
     }
 }
