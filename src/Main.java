@@ -1,5 +1,7 @@
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -57,7 +59,6 @@ public class Main {
                 System.out.println("YOU WOT?");
         }
     }
-
     private void chat() {
         System.out.println("Chat Started");
 
@@ -66,10 +67,7 @@ public class Main {
         messageSender.send("HELO Menno");
         while (true) {
             String message = scanner.nextLine();
-            if(message.equals("QUIT")) {
-                messageSender.send(message);
-            }
-            messageSender.send("BCST " + message);
+            messageSender.send(message);
         }
     }
 
