@@ -63,8 +63,12 @@ public class Main {
 
         Sender messageSender = new Sender(outputStream);
 
+        messageSender.send("HELO Menno");
         while (true) {
             String message = scanner.nextLine();
+            if(message.equals("QUIT")) {
+                messageSender.send(message);
+            }
             messageSender.send("BCST " + message);
         }
     }

@@ -14,7 +14,10 @@ public class Receiver implements Runnable {
         while (true) {
             try {
                 String message = reader.readLine();
-                System.out.println(message);
+                String firstPart = message.substring(0, 3);
+                if(!firstPart.equals("+OK")) {
+                    System.out.println(message);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
