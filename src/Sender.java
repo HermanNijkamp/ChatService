@@ -9,8 +9,9 @@ public class Sender {
     }
 
     public void send(String message) {
-        if (message.equals("QUIT"))
+        if (!message.equals("QUIT")) {
             message = "BCST " + message;
+        }
         PrintWriter writer = new PrintWriter(outputStream);
         writer.println(message);
         writer.flush();

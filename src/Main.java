@@ -9,6 +9,7 @@ public class Main {
     private InputStream inputStream;
     private OutputStream outputStream;
     private Scanner scanner = new Scanner(System.in);
+    Thread receiverThread;
 
     public static void main(String[] args) {
         new Main().run();
@@ -19,7 +20,7 @@ public class Main {
         connect();
 
         Receiver messageReceiver = new Receiver(inputStream);
-        Thread receiverThread = new Thread(messageReceiver);
+        receiverThread = new Thread(messageReceiver);
         receiverThread.start();
 //        login();
         printMenu();
